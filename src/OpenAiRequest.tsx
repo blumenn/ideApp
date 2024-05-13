@@ -1,7 +1,8 @@
 import OpenAI from "openai";
 
+
 const openai = new OpenAI({
-    // apiKey: process KEY
+    apiKey: import.meta.env.VITE_REACT_APP_OPENAI_API_KEY,
     dangerouslyAllowBrowser:true
 });
 
@@ -10,7 +11,7 @@ async function getOpenAIResponse(messages) {
         model: "gpt-3.5-turbo",
         messages: messages,
         temperature: 0.5,
-        max_tokens: 64,
+        max_tokens: 200,
         top_p: 1,
     });
 

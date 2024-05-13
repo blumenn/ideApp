@@ -1,42 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import getOpenAIResponse from './OpenAiRequest';
+import React, { useState } from "react";
+import Questionnaire from "./Questionnaire";
+import Feedback from "./Feedback";
 
-function App() {
-    const [response, setResponse] = useState(null);
-    const [prompt, setPrompt] = useState('');
+const App: React.FC = () => {
+    const [step, setStep] = useState("questionnaire");
+    const [responses, setResponses] = useState<any[]>([]);
 
-    useEffect(() => {
-        const fetchResponse = async () => {
-            const messages = [
-                {role: "system", content: "You are a helpful assistant."},
-                {role: "user", content: prompt}
-            ];
-            const result = await getOpenAIResponse(messages);
-            setResponse(result);
-        };
-
-        fetchResponse();
-    }, [prompt]);
-
-    const handleInputChange = (event) => {
-        setPrompt(event.target.value);
+    const handleQuestionnaireSubmit = (answers: any[]) => {
+        setResponses(answers);
+        setStep("feedback");
     };
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <input type="text" placeholder="Type your message here" onChange={handleInputChange} />
-
-                {response && (
-                    <div>
-                        <h1>OpenAI Response:</h1>
-                        <p>{response.choices[0].message.content}</p>
-                        <button onClick={() => setPrompt('')}>Clear</button>
-                    </div>
-                )}
-            </header>
+        <div>
+            {step === "questionnaire" ? (
+                <Questionnaire onSubmit={handleQuestionnaireSubmit} />
+            ) : (
+                <Feedback responses={responses} />
+            )}
         </div>
     );
-}
+};
 
 export default App;
