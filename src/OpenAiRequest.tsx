@@ -11,7 +11,7 @@ async function getOpenAIResponse(messages) {
         model: "gpt-3.5-turbo",
         messages: messages,
         temperature: 0.5,
-        max_tokens: 200,
+        max_tokens: 1000,
         top_p: 1,
     });
 
