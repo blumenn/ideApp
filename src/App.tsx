@@ -1,25 +1,16 @@
-import React, { useState } from "react";
-import Questionnaire from "./Questionnaire";
-import Feedback from "./Feedback";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Quiz from './Quiz';
+import Frontpage from './Frontpage/Frontpage';
 
-const App: React.FC = () => {
-    const [step, setStep] = useState("questionnaire");
-    const [responses, setResponses] = useState<any[]>([]);
-
-    const handleQuestionnaireSubmit = (answers: any[]) => {
-        setResponses(answers);
-        setStep("feedback");
-    };
-
+function App() {
     return (
-        <div>
-            {step === "questionnaire" ? (
-                <Questionnaire onSubmit={handleQuestionnaireSubmit} />
-            ) : (
-                <Feedback responses={responses} />
-            )}
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Frontpage />} />
+                <Route path="/quiz" element={<Quiz />} />
+            </Routes>
+        </Router>
     );
-};
+}
 
 export default App;
