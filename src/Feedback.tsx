@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import getOpenAIResponse from "./OpenAiRequest.tsx";
+import Card from "@mui/material/Card";
 
-const Feedback: React.FC<{ responses: any[] }> = ({ responses }) => {
+const Feedback: React.FC<{ responses: any[], onFeedbackReady: (feedback: string) => void }> = ({ responses, onFeedbackReady }) => {
     const [feedback, setFeedback] = useState<string>("Loading feedback...");
 
     useEffect(() => {
@@ -25,20 +26,20 @@ const Feedback: React.FC<{ responses: any[] }> = ({ responses }) => {
                 const prompt = `${specialInstructions}Given the following responses: ${responses.map(r => `${r.question} Answer: ${r.answer}`).join(", ")}, generate supportive and helpful feedback for a victim of stalking.`;
 
                 const result = await getOpenAIResponse([{ role: "system", content: systemPrompt }, { role: "user", content: prompt }]);
-                    setFeedback(result.choices[0].message.content);
+                    onFeedbackReady(result.choices[0].message.content);
             } catch (error) {
                 console.error("Error fetching feedback:", error);
-                setFeedback("Failed to load feedback, please try again later.");
+                onFeedbackReady("Failed to load feedback, please try again later.");
             }
         }
 
         fetchFeedback();
-    }, [responses]);
+    }, [responses, onFeedbackReady]);
 
     return (
         <div>
             <h2>Personalized Feedback</h2>
-            <p>{feedback}</p>
+            <Card>{feedback}</Card>
         </div>
     );
 };

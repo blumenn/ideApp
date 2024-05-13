@@ -13,8 +13,8 @@ const questions: Question[] = [
         questionText: "Have you experienced stalking on any digital platform?",
         type: "multiple-choice",
         options: ["Yes", "No"]
-    },
-    {
+    }
+    /*{
         id: 2,
         questionText: "Which platform did the stalking occur on?",
         type: "multiple-choice",
@@ -25,7 +25,7 @@ const questions: Question[] = [
         questionText: "Do you feel in immediate danger and need urgent help",
         type: "multiple-choice",
         options: ["Yes", "No"]
-    }
+    }*/
 ];
 
 const Questionnaire: React.FC<{ onSubmit: (answers: any[]) => void }> = ({ onSubmit }) => {
