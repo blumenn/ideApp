@@ -55,8 +55,7 @@ const Chat: React.FC<{ initialMessage: string }> = ({initialMessage}) => {
                         <CardContent style={{
                             backgroundColor: msg.role === "system" ? "#98c1d9" : "#e0fbfc",
                         }}>
-                            <Typography
-                                variant="body1">{msg.role === 'system' ? 'AI: ' : 'You: '}{msg.content}</Typography>
+                            <Typography style={{color:"black"}} variant="body1">{msg.content}</Typography>
                         </CardContent>
                     </Card>
                 ))}
