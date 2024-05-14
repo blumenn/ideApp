@@ -9,6 +9,29 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#3d5a80',
+        },
+        secondary: {
+            main: '#ee6c4d',
+        },
+    },
+    typography: {
+        h2: {
+            color: '#293241',
+        },
+        h6: {
+            color: '#293241',
+        },
+        body1: {
+            color: '#3d5a80',
+        },
+    },
+});
 
 const Feedback: React.FC<{ responses: any[], onFeedbackReady: (feedback: string) => void, onSeeResultClick: () => void }> = ({ responses, onFeedbackReady, onSeeResultClick }) => {
     const [feedback, setFeedback] = useState<string>("Loading feedback...");
@@ -57,28 +80,28 @@ const Feedback: React.FC<{ responses: any[], onFeedbackReady: (feedback: string)
     };
 
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             <Dialog open={dialogOpen}>
-                <DialogTitle>Loading Feedback</DialogTitle>
-                <DialogContent>
+                <DialogTitle style={{ backgroundColor: '#3d5a80', color: '#e0fbfc' }}>Loading Feedback</DialogTitle>
+                <DialogContent style={{ backgroundColor: '#e0fbfc' }}>
                     <Typography variant="h6">This test is designed to give an educated guess. On this page we have created an AI that is specialized in digital security. Based on your answers, it provides feedback and guidance. Feel free to ask additional questions, for instance, how to check which devices have access to your Snapchat account.</Typography>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
                         {loading ? <CircularProgress /> : <CheckCircleOutlineIcon style={{ color: 'green', fontSize: 40 }} />}
                     </div>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleSeeResult} color="primary" disabled={loading}>
+                <DialogActions style={{ backgroundColor: '#e0fbfc' }}>
+                    <Button variant={"contained"} onClick={handleSeeResult} color="primary" disabled={loading}>
                         See result
                     </Button>
                 </DialogActions>
             </Dialog>
             {showFeedback && (
                 <>
-                    <h2>Personalized Feedback</h2>
-                    <Card>{feedback}</Card>
+                    <Typography variant="h2" style={{ marginTop: '20px' }}>Personalized Feedback</Typography>
+                    <Card style={{ padding: '20px', marginTop: '10px', backgroundColor: '#e0fbfc', color: '#3d5a80' }}>{feedback}</Card>
                 </>
             )}
-        </div>
+        </ThemeProvider>
     );
 };
 
