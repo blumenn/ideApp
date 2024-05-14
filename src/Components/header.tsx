@@ -1,4 +1,4 @@
-import logo from './assets/logo.png'; // Import the image
+import logo from '../assets/logo.png'; // Import the image
 import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
 
     return (
         <div className={`header ${isMobile ? 'mobile-view' : ''}`}>
-            <img src={logo} alt="Header Image" />
+            <img className={`${isMobile ? 'mobile-v-image' : ''}`} src={logo} alt="Header Image" />
             {!isMobile && <h1 className="header-title">Lighthouse</h1>}
             <div>
                 <IconButton
