@@ -15,6 +15,9 @@ const Quiz: React.FC = () => {
 
     const handleFeedbackReceived = (feedback: string) => {
         setFeedback(feedback);
+    };
+
+    const handleSeeResultClick = () => {
         setStep("chat");
     };
 
@@ -24,7 +27,7 @@ const Quiz: React.FC = () => {
                 <Questionnaire onSubmit={handleQuestionnaireSubmit} />
             )}
             {step === "feedback" && (
-                <Feedback responses={responses} onFeedbackReady={handleFeedbackReceived} />
+                <Feedback responses={responses} onFeedbackReady={handleFeedbackReceived} onSeeResultClick={handleSeeResultClick} />
             )}
             {step === "chat" && feedback && (
                 <Chat initialMessage={feedback} />
