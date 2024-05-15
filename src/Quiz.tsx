@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import Questionnaire from "./Questionnaire";
 import Feedback from "./Feedback";
 import Chat from "./Chat";
@@ -7,6 +7,9 @@ import Button from "@mui/material/Button";
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Footer from "./Components/footer";
+import Header from "./Components/header";
+import Background from "./Components/background";
 
 const theme = createTheme({
     palette: {
@@ -27,6 +30,11 @@ const theme = createTheme({
     },
 });
 
+interface ScrollableContentStyle extends CSSProperties {
+    maxHeight?: string;
+    overflowY?: 'visible' | 'hidden' | 'scroll' | 'auto'; // Specify the exact type for overflowY
+}
+
 const Quiz: React.FC = () => {
     const [step, setStep] = useState("frontPage");
     const [responses, setResponses] = useState<any[]>([]);
@@ -46,9 +54,17 @@ const Quiz: React.FC = () => {
         setStep("chat");
     };
 
+    const scrollableContentStyle: ScrollableContentStyle = {
+        maxHeight: "calc(100vh - 24vh)", // Adjust the value based on the combined heights of your Header and Footer
+        overflowY: "auto", // Enable vertical scrolling
+    };
+
     return (
-        <ThemeProvider theme={theme}>
-            <Container maxWidth="md">
+        <><Header /><><ThemeProvider theme={theme}>
+            <Background/>
+                <div style={scrollableContentStyle}>
+                    {}
+                    <Container maxWidth="md">
                 {step === "frontPage" && (
                     <Paper elevation={3} style={{ padding: '30px', textAlign: 'center', marginTop: '50px', backgroundColor: '#e0fbfc' }}>
                         <Typography variant="h4" gutterBottom>
@@ -78,7 +94,8 @@ const Quiz: React.FC = () => {
                     <Chat initialMessage={feedback} />
                 )}
             </Container>
-        </ThemeProvider>
+                </div>
+        </ThemeProvider><Footer /></></>
     );
 };
 
