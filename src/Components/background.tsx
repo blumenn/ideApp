@@ -1,6 +1,10 @@
 import background from '../assets/background.png'; // Import the image
 
-const Background: React.FC = () => {
+type BackgroundProps = React.PropsWithChildren<{
+    // Include other props here if necessary
+}>;
+
+const Background: React.FC<BackgroundProps> = () => {
     return (
         <div
             className='background'
