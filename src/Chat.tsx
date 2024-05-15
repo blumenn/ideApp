@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -8,6 +8,8 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import getOpenAIResponse from "./OpenAiRequest.tsx";
+import { motion } from "framer-motion";
+import ReactMarkdown from 'react-markdown';
 
 const theme = createTheme({
     palette: {
@@ -54,7 +56,7 @@ const Chat: React.FC<{ initialMessage: string }> = ({ initialMessage }) => {
                 role: 'system',
                 content: initialMessage
             }, ...messages, userMessage]);
-            const systemResponse = { role: 'system', content: result.choices[0].message.content };
+            const systemResponse = { role: 'system', content: formatToMarkdown(result.choices[0].message.content) };
             setMessages(prev => [...prev, systemResponse]);
         } catch (error) {
             console.error("Error communicating with OpenAI:", error);
@@ -68,29 +70,41 @@ const Chat: React.FC<{ initialMessage: string }> = ({ initialMessage }) => {
     return (
         <ThemeProvider theme={theme}>
             <Container maxWidth="md" style={{ padding: '20px', marginTop: '50px' }}>
-                <Box mb={4} textAlign="center">
-                    <Typography variant="h6">
-                        This test is designed to give an educated guess. On this page we have created an AI that is specialized in digital security. Based on your answers it provides feedback and guidance. Feel free to ask additional questions, for instance how to check which devices have access to your Snapchat account.
-                    </Typography>
-                </Box>
                 <Box display="flex" flexDirection="column" alignItems="center">
                     {messages.map((msg, index) => (
-                        <Card key={index} style={{
-                            width: '100%',
-                            marginBottom: '10px',
-                            textAlign: msg.role === 'system' ? 'start' : 'end',
-                            alignSelf: msg.role === 'system' ? 'flex-start' : 'flex-end',
-                            backgroundColor: msg.role === 'system' ? '#98c1d9' : '#e0fbfc'
-                        }}>
-                            <CardContent>
-                                <Typography style={{ color: '#293241' }} variant="body1">{msg.content}</Typography>
-                            </CardContent>
-                        </Card>
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1 }}
+                            style={{
+                                width: '100%',
+                                marginBottom: '10px',
+                                textAlign: msg.role === 'system' ? 'start' : 'end',
+                                alignSelf: msg.role === 'system' ? 'flex-start' : 'flex-end',
+                            }}
+                        >
+                            <Card style={{
+                                backgroundColor: msg.role === 'system' ? '#98c1d9' : '#e0fbfc'
+                            }}>
+                                <CardContent>
+                                    <Typography style={{ color: '#293241' }} variant="body1">
+                                        <ReactMarkdown components={{
+                                            p: ({ node, ...props }) => <p style={{ color: '#293241' }} {...props} />,
+                                            ul: ({ node, ...props }) => <ul style={{ color: '#293241' }} {...props} />,
+                                            li: ({ node, ...props }) => <li style={{ color: '#293241' }} {...props} />
+                                        }}>
+                                            {msg.content}
+                                        </ReactMarkdown>
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
                     ))}
                     <form onSubmit={handleUserInputSubmit} style={{ width: '100%' }}>
                         <TextField
                             fullWidth
-                            label="Type your message"
+                            label="Ask a question"
                             variant="outlined"
                             value={input}
                             onChange={e => setInput(e.target.value)}

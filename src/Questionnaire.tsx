@@ -20,11 +20,36 @@ type Question = {
 const questions: Question[] = [
     {
         id: 1,
-        questionText: "Have you experienced stalking on any digital platform?",
+        questionText: "Have you felt watched or followed by a particular person, whether you are alone or with others?",
         type: "multiple-choice",
-        options: ["Yes", "No"]
+        options: ["Yes", "No", "Don't know"]
+    },
+    {
+        id: 2,
+        questionText: "Has this person ever directly or indirectly threatened you, either online or in real life?",
+        type: "multiple-choice",
+        options: ["Yes", "No", "Don't know"]
+    },
+    {
+        id: 3,
+        questionText: "Have you experienced this person contacting your friends, family, or colleagues unannounced to obtain information about you or to spread rumors?",
+        type: "multiple-choice",
+        options: ["Yes", "No", "Don't know"]
+    },
+    {
+        id: 4,
+        questionText: "Have you noticed this person using technology to track your location, such as GPS on your phone or by hacking your online accounts?",
+        type: "multiple-choice",
+        options: ["Yes", "No", "Don't know"]
+    },
+    {
+        id: 5,
+        questionText: "Have you experienced increased anxiety, fear, or stress as a result of this person's actions?",
+        type: "multiple-choice",
+        options: ["Yes", "No", "Don't know"]
     }
 ];
+
 
 const theme = createTheme({
     palette: {

@@ -7,10 +7,10 @@ const openai = new OpenAI({
 
 async function getOpenAIResponse(messages: any) {
   return openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: "gpt-4o",
     messages: messages,
-    temperature: 0.5,
-    max_tokens: 200,
+    temperature: 1,
+    max_tokens: 300,
     top_p: 1,
   });
 }
