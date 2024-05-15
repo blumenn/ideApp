@@ -95,7 +95,9 @@ const Quiz: React.FC = () => {
                 )}
             </Container>
                 </div>
-        </ThemeProvider><Footer /></></>
+        </ThemeProvider>
+            <Footer />
+        </></>
     );
 };
 

@@ -56,7 +56,7 @@ const Chat: React.FC<{ initialMessage: string }> = ({ initialMessage }) => {
                 role: 'system',
                 content: initialMessage
             }, ...messages, userMessage]);
-            const systemResponse = { role: 'system', content: formatToMarkdown(result.choices[0].message.content) };
+            const systemResponse = { role: 'system', content: (result.choices[0].message.content) };
             setMessages(prev => [...prev, systemResponse]);
         } catch (error) {
             console.error("Error communicating with OpenAI:", error);
