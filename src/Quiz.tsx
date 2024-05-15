@@ -60,7 +60,8 @@ const Quiz: React.FC = () => {
     };
 
     return (
-        <><Header /><><ThemeProvider theme={theme}>
+        <><ThemeProvider theme={theme}>
+            <Header />
             <Background/>
                 <div style={scrollableContentStyle}>
                     {}
@@ -95,7 +96,8 @@ const Quiz: React.FC = () => {
                 )}
             </Container>
                 </div>
-        </ThemeProvider><Footer /></></>
+            <Footer />
+        </ThemeProvider></>
     );
 };
 
