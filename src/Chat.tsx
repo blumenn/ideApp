@@ -104,11 +104,12 @@ const Chat: React.FC<{ initialMessage: string }> = ({ initialMessage }) => {
                     <form onSubmit={handleUserInputSubmit} style={{ width: '100%' }}>
                         <TextField
                             fullWidth
-                            label="Ask a question"
+                            label="Feel free to ask a question"
                             variant="outlined"
                             value={input}
                             onChange={e => setInput(e.target.value)}
                             margin="normal"
+                            style={{backgroundColor: '#e0fbfc'}}
                         />
                         <Button type="submit" variant="contained" color="primary" fullWidth>
                             Send
